@@ -31,8 +31,7 @@ def load_modules():
         # my_module = importlib.import_module("modules.%s" % module)
         # klass = getattr(my_module, module)
         # bot.add_cog(klass(bot))
-        bot.load_extension(module)
-
+        bot.load_extension("modules.%s" % module)
 
 
 setup()
