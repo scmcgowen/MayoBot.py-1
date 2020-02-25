@@ -3,7 +3,7 @@ from discord.ext import commands
 from googletrans import Translator
 
 
-class TranslationCog(commands.Cog):
+class TranslatorExt(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -29,3 +29,6 @@ class TranslationCog(commands.Cog):
         embed.add_field(name="Translated: :flag_%s:" % target_lang, value=translated.text, inline=False)
         embed.set_footer(text="Source: Google Translator")
         await ctx.send(embed=embed)
+
+def setup(bot):
+    bot.add_cog(TranslatorExt(bot))

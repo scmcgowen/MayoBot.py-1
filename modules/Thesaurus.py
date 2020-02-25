@@ -5,7 +5,7 @@ from discord.ext import commands
 
 from nltk.corpus import wordnet as wn
 
-class ThesaurusCog(commands.Cog):
+class Thesaurus(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -33,3 +33,5 @@ class ThesaurusCog(commands.Cog):
 
             embed.set_footer(text="Requested by %s" % ctx.message.author.name)
             await ctx.send(embed=embed)
+def setup(bot):
+    bot.add_cog(Thesaurus(bot))

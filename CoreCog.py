@@ -26,17 +26,19 @@ class CoreCog(commands.Cog):
                 if check == "fine":
                     await ctx.send("⬇ |   Module '%s' has been downloaded successfully and checked. No errors found! Enabling module..." % name)
                     add_module(name)
-                    my_module = importlib.import_module("modules.%s" % name)
-                    klass = getattr(my_module, name)
-                    self.bot.add_cog(klass(self.bot))
+                    # my_module = importlib.import_module("modules.%s" % name)
+                    # klass = getattr(my_module, name)
+                    # self.bot.add_cog(klass(self.bot))
+                    self.bot.load_extension('modules.%s' % name)
                     await ctx.send("✅ |   Module '%s' has been enabled!" % name)
                 else:
                     await ctx.send("🚫 |   Module '%s' has been downloaded successfully but check failed.\nError:%s" % (name, check))
             elif action == "remove":
                 if name:
+                    self.bot.unload_extension('modules.%s' % name)
                     delete_module_file(name)
                     remove_module(name)
-                    self.bot.remove_cog(name)
+                    # self.bot.remove_cog(name)
                     print("Module '%s' has been disabled." % name)
                     await ctx.send("✅ |   Module '%s' has been removed!" % name)
                 else:
@@ -64,3 +66,7 @@ class CoreCog(commands.Cog):
                 await ctx.send("✅ |   I told `pip` to uninstall '%s'. That's the command output:\n```%s```".decode(sys.stdout.encoding) % (package, output))
         else:
             await ctx.send("🚫 |   Only my overlord, realmayus is permitted to execute this command.")
+
+
+def setup(bot):
+    bot.add_cog(CoreCog(bot))

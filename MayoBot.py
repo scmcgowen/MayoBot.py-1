@@ -28,9 +28,10 @@ def setup():
 def load_modules():
     module_list = get_module_names()
     for module in module_list:
-        my_module = importlib.import_module("modules.%s" % module)
-        klass = getattr(my_module, module)
-        bot.add_cog(klass(bot))
+        # my_module = importlib.import_module("modules.%s" % module)
+        # klass = getattr(my_module, module)
+        # bot.add_cog(klass(bot))
+        bot.load_extension(module)
 
 
 
